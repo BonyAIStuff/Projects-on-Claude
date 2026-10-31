@@ -13,6 +13,8 @@ This skill **prepares**; the creator **uploads**. There's no platform API set up
 
 Read `videos/<slug>/STATUS.md`, `BRIEF.md`, `SCRIPT.md`, `SPEC.md` (chapters, Shorts), STYLE.md's "Voice & tone", and list `videos/<slug>/renders/`. If a render the package needs is missing or Gate 3 isn't ticked, stop and say which.
 
+**Final-check gate.** If `STATUS.md` doesn't show `Final check — READY`, don't build the package: run `/final-check` (or tell the creator what it's blocking on). Only proceed past a NOT YET when the creator explicitly overrides; record the override and the unresolved items in STATUS.md.
+
 Platform rules change often. Read `references/platforms.md`; if its "last verified" date is older than ~6 months, re-check the limits that matter (title/caption length, Shorts/Reels max length, thumbnail spec) with a quick web search and update the file with sources.
 
 ## Step 1 — Packaging (title + thumbnail first)

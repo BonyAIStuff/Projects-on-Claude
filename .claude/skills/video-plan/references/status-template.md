@@ -10,6 +10,8 @@ Current stage: plan | edit | post | published
 - [ ] Footage received (list files / where they live)
 - [ ] Gate 3 — long-form preview approved
 - [ ] Gate 3 — Shorts previews approved (<n> of <n>)
+- [ ] Format check — all PASS
+- [ ] Final check — READY (score __)
 - [ ] Gate 4 — post package approved
 - [ ] Published (links + dates)
 
