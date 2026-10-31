@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      /* Style test B — Muted brick — Broadsheet palette, Swiss grotesk, highlighter sweep,
+         spotlight news, whip cuts, hand-drawn annotations, newsroom SFX, pulse-and-pads. */
+      @font-face { font-family: "Archivo"; font-weight: 500; src: url("assets/fonts/archivo-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Archivo"; font-weight: 800; src: url("assets/fonts/archivo-latin-800-normal.woff2") format("woff2"); }
+      :root {
+        --ground: #f2eee6;
+        --ink: #121212;
+        --second: #55606b;
+        --desk: #dcd6ca;
+        --hl: #a8402c;
+        --hl-op: 0.92;
+        --annot: #a8402c;
+        --font: "Archivo", "Helvetica Neue", Arial, sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ground); }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; font-family: var(--font); color: var(--ink); }
+      .scene { position: absolute; inset: 0; overflow: hidden; }
+      .inner { position: absolute; inset: 0; }
+
+      /* Scene 1 — talking-head stand-in */
+      #s1 .inner { background: radial-gradient(ellipse at 50% 35%, #8f9aa3 0%, #4c565f 55%, #2a3036 100%); }
+      #person { position: absolute; left: 50%; top: 0; width: 900px; height: 1080px; margin-left: -450px; }
+      #person .head { position: absolute; left: 330px; top: 180px; width: 240px; height: 290px; border-radius: 50%; background: #20262b; }
+      #person .body { position: absolute; left: 120px; top: 500px; width: 660px; height: 700px; border-radius: 330px 330px 0 0; background: #20262b; }
+      #standin { position: absolute; right: 120px; top: 90px; font: 500 28px var(--font); letter-spacing: .14em; color: rgba(255,255,255,.88); }
+      .cap { position: absolute; left: 192px; right: 192px; bottom: 170px; text-align: center; }
+      .cap .line { font: 800 76px/1.15 var(--font); letter-spacing: -0.02em; color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,.45); }
+      .w { position: relative; display: inline-block; padding: 0 6px; }
+      .w .wt { position: relative; }
+      .w .hl { position: absolute; left: 0; right: 0; top: 58%; bottom: 4%; background: var(--hl); opacity: var(--hl-op); transform-origin: left center; }
+      
+
+      /* Scene 2 — news article spotlight */
+      #s2 .inner { background: var(--desk); }
+      #paper { position: absolute; left: 360px; top: 120px; width: 1200px; padding: 64px 80px 72px; background: #fbfaf7; box-shadow: 0 30px 70px rgba(0,0,0,.22); transform-origin: 40% 78%; }
+      #paper .mast { font: 500 28px var(--font); letter-spacing: .2em; color: #6b6b6b; border-bottom: 2px solid #d9d4ca; padding-bottom: 18px; margin-bottom: 28px; }
+      #paper .hed { font: 800 58px/1.08 var(--font); letter-spacing: -0.02em; margin-bottom: 18px; }
+      #paper .dek { font: 500 30px/1.4 var(--font); color: var(--second); margin-bottom: 34px; }
+      #paper .ln { font: 500 34px/1.5 Georgia, "Times New Roman", serif; color: #1c1c1c; opacity: .22; margin-bottom: 14px; }
+      #sample { position: absolute; right: 120px; bottom: 70px; font: 500 28px var(--font); letter-spacing: .12em; color: var(--ink); }
+
+      /* Scene 3 — stat with hand-drawn annotation */
+      #s3 .inner { background: var(--ground); }
+      #stat { position: absolute; left: 260px; top: 300px; width: 900px; }
+      #stat .kicker { font: 500 30px var(--font); letter-spacing: .16em; color: var(--second); margin-bottom: 10px; }
+      #stat .big { font: 800 260px/1 var(--font); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+      #stat .lbl { font: 500 40px var(--font); color: var(--ink); margin-top: 70px; }
+      #annot { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+      #annot path { fill: none; stroke: var(--annot); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+      #note { position: absolute; left: 1230px; top: 250px; width: 520px; font: 800 54px/1.1 var(--font); color: var(--annot); letter-spacing: -0.01em; }
+      #src { position: absolute; left: 260px; bottom: 120px; font: 500 28px var(--font); color: var(--second); letter-spacing: .04em; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="19.5" data-width="1920" data-height="1080">
+
+      <div id="s1" data-layout-allow-overflow class="scene clip" data-start="0" data-duration="4.9" data-track-index="0">
+        <div class="inner" id="s1i">
+          <div id="person"><div class="head"></div><div class="body"></div></div>
+          <div id="standin">YOUR TALKING HEAD HERE</div>
+        </div>
+      </div>
+      <div id="cap1" class="cap clip" data-start="0.2" data-duration="2.45" data-track-index="3"><div class="line" id="cap1l"><span class="w" id="g1-w0"><span class="wt">They</span></span> <span class="w" id="g1-w1"><span class="wt">raised</span></span> <span class="w" id="g1-w2"><span class="hl" id="g1-hl2"></span><span class="wt">prices</span></span> <span class="w" id="g1-w3"><span class="wt">and</span></span> <span class="w" id="g1-w4"><span class="wt">lost</span></span> <span class="w" id="g1-w5"><span class="hl" id="g1-hl5"></span><span class="wt">customers.</span></span></div></div>
+      <div id="cap2" class="cap clip" data-start="2.65" data-duration="1.95" data-track-index="3"><div class="line" id="cap2l"><span class="w" id="g2-w0"><span class="wt">Then</span></span> <span class="w" id="g2-w1"><span class="hl" id="g2-hl1"></span><span class="wt">revenue</span></span> <span class="w" id="g2-w2"><span class="wt">went</span></span> <span class="w" id="g2-w3"><span class="hl" id="g2-hl3"></span><span class="wt">up.</span></span></div></div>
+
+      <div id="s2" class="scene clip" data-start="4.45" data-duration="8.9" data-track-index="1">
+        <div class="inner" id="s2i">
+          <div id="paper">
+            <div class="mast">SAMPLE BUSINESS DAILY &middot; MARKETS</div>
+            <div class="hed">Price rise costs subscribers, but revenue keeps climbing</div>
+            <div class="dek">A fictional article used to test the highlight style.</div>
+            <p class="ln" id="ln0">The service raised its monthly price by $2 in March,</p>
+<p class="ln" id="ln1">and roughly 1 in 20 subscribers cancelled within weeks.</p>
+<p class="ln" id="ln2">Yet quarterly revenue still climbed 12%, the filing shows.</p>
+          </div>
+          <div id="sample">SAMPLE ARTICLE</div>
+        </div>
+      </div>
+
+      <div id="s3" class="scene clip" data-start="12.9" data-duration="6.6" data-track-index="2">
+        <div class="inner" id="s3i">
+          <div id="stat">
+            <div class="kicker">QUARTERLY REVENUE</div>
+            <div class="big" id="bignum">+0%</div>
+            <div class="lbl">after a price rise</div>
+          </div>
+          <svg id="annot" viewBox="0 0 1920 1080">
+            <path id="circle" d="M225 480 C 205 330, 800 290, 1035 400 C 1150 470, 1040 600, 640 618 C 330 630, 215 575, 240 465" />
+            <path id="arrow" d="M1220 330 C 1160 340, 1110 360, 1065 395 M1065 395 L 1120 392 M1065 395 L 1078 345" />
+          </svg>
+          <div id="note">Fewer customers. More money.</div>
+          <div id="src">Sample data for style test</div>
+        </div>
+      </div>
+
+      <audio id="music" class="clip" src="assets/audio/music.wav" data-start="0" data-duration="19.5" data-volume="0.55" data-fade-out="1.5" data-track-index="5"></audio>
+      <audio id="sfx-blip1" class="clip" src="assets/audio/blip.wav" data-start="0.25" data-duration="0.25" data-volume="0.5" data-track-index="6"></audio>
+      <audio id="sfx-blip2" class="clip" src="assets/audio/blip.wav" data-start="2.7" data-duration="0.25" data-volume="0.5" data-track-index="6"></audio>
+      <audio id="sfx-whoosh1" class="clip" src="assets/audio/whoosh.wav" data-start="4.3" data-duration="0.45" data-volume="0.8" data-track-index="7"></audio>
+      <audio id="sfx-shutter" class="clip" src="assets/audio/shutter.wav" data-start="4.85" data-duration="0.19" data-volume="0.7" data-track-index="8"></audio>
+      <audio id="sfx-whoosh2" class="clip" src="assets/audio/whoosh.wav" data-start="12.75" data-duration="0.45" data-volume="0.8" data-track-index="7"></audio>
+      <audio id="sfx-typing" class="clip" src="assets/audio/typing.wav" data-start="13.4" data-duration="0.8" data-volume="0.6" data-track-index="8"></audio>
+      <audio id="sfx-blip3" class="clip" src="assets/audio/blip.wav" data-start="15.0" data-duration="0.25" data-volume="0.5" data-track-index="6"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Scene 1: slow push-in on the talking head, captions word by word
+      tl.fromTo("#s1i", { scale: 1 }, { scale: 1.06, duration: 4.9, ease: "none" }, 0);
+      tl.fromTo("#g1-w0", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.18, ease: "power3.out"}, 0.30);
+      tl.fromTo("#g1-w1", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.18, ease: "power3.out"}, 0.58);
+      tl.fromTo("#g1-w2", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.18, ease: "power3.out"}, 0.86);
+      tl.fromTo("#g1-hl2", {scaleX: 0}, {scaleX: 1, duration: 0.26, ease: "power2.out"}, 0.91);
+      tl.fromTo("#g1-w2 .wt", {color: "#ffffff", textShadow: "0 2px 18px rgba(0,0,0,.45)"}, {color: "#ffffff", textShadow: "0 0 0 rgba(0,0,0,0)", duration: 0.15}, 1.02);
+      tl.fromTo("#g1-w3", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.18, ease: "power3.out"}, 1.30);
+      tl.fromTo("#g1-w4", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.18, ease: "power3.out"}, 1.50);
+      tl.fromTo("#g1-w5", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.18, ease: "power3.out"}, 1.78);
+      tl.fromTo("#g1-hl5", {scaleX: 0}, {scaleX: 1, duration: 0.26, ease: "power2.out"}, 1.83);
+      tl.fromTo("#g1-w5 .wt", {color: "#ffffff", textShadow: "0 2px 18px rgba(0,0,0,.45)"}, {color: "#ffffff", textShadow: "0 0 0 rgba(0,0,0,0)", duration: 0.15}, 1.94);
+      tl.fromTo("#g2-w0", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.18, ease: "power3.out"}, 2.75);
+      tl.fromTo("#g2-w1", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.18, ease: "power3.out"}, 3.02);
+      tl.fromTo("#g2-hl1", {scaleX: 0}, {scaleX: 1, duration: 0.26, ease: "power2.out"}, 3.07);
+      tl.fromTo("#g2-w1 .wt", {color: "#ffffff", textShadow: "0 2px 18px rgba(0,0,0,.45)"}, {color: "#ffffff", textShadow: "0 0 0 rgba(0,0,0,0)", duration: 0.15}, 3.18);
+      tl.fromTo("#g2-w2", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.18, ease: "power3.out"}, 3.50);
+      tl.fromTo("#g2-w3", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.18, ease: "power3.out"}, 3.72);
+      tl.fromTo("#g2-hl3", {scaleX: 0}, {scaleX: 1, duration: 0.26, ease: "power2.out"}, 3.77);
+      tl.fromTo("#g2-w3 .wt", {color: "#ffffff", textShadow: "0 2px 18px rgba(0,0,0,.45)"}, {color: "#ffffff", textShadow: "0 0 0 rgba(0,0,0,0)", duration: 0.15}, 3.88);
+
+      // Whip 1 (4.45 → 4.9): s1 out left, s2 in from right with skew
+      tl.to("#s1i", { xPercent: -100, skewX: 8, duration: 0.42, ease: "power3.in" }, 4.45);
+      tl.fromTo("#s2i", { xPercent: 100, skewX: 8 }, { xPercent: 0, skewX: 0, duration: 0.45, ease: "power3.out" }, 4.45);
+
+      // Scene 2: push-in on the paper, spotlight line by line
+      tl.fromTo("#paper", { scale: 1, y: 0 }, { scale: 1.4, y: -40, duration: 8.4, ease: "sine.inOut" }, 4.9);
+      tl.to("#ln0", {opacity: 1, duration: 0.3, ease: "power2.out"}, 5.20);
+      tl.to("#ln1", {opacity: 1, duration: 0.3, ease: "power2.out"}, 7.90);
+      tl.to("#ln0", {opacity: 0.22, duration: 0.3, ease: "power2.out"}, 7.90);
+      tl.to("#ln2", {opacity: 1, duration: 0.3, ease: "power2.out"}, 10.40);
+      tl.to("#ln1", {opacity: 0.22, duration: 0.3, ease: "power2.out"}, 10.40);
+
+      // Whip 2 (9.9 → 10.35)
+      tl.to("#s2i", { xPercent: -100, skewX: 8, duration: 0.42, ease: "power3.in" }, 12.9);
+      tl.fromTo("#s3i", { xPercent: 100, skewX: 8 }, { xPercent: 0, skewX: 0, duration: 0.45, ease: "power3.out" }, 12.9);
+
+      // Scene 3: count-up, then circle and arrow draw on, then the note
+      const counter = { v: 0 };
+      tl.to(counter, { v: 12, duration: 0.9, ease: "power2.out", onUpdate: () => { document.getElementById("bignum").textContent = "+" + Math.round(counter.v) + "%"; } }, 13.4);
+      tl.fromTo("#circle", { strokeDasharray: 1700, strokeDashoffset: 1700 }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, 14.5);
+      tl.fromTo("#arrow", { strokeDasharray: 520, strokeDashoffset: 520 }, { strokeDashoffset: 0, duration: 0.45, ease: "power2.out" }, 15.25);
+      tl.fromTo("#note", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 15.6);
+      tl.set({}, {}, 19.5);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+node_modules/
+.hyperframes/
+renders/*.mp4
+renders/*.mov
+renders/*.webm
+.DS_Store
+videos/*/footage/*
+!videos/*/footage/INDEX.md
+videos/*/renders/
+videos/*/*/renders/
+videos/*/long/assets/footage/
+style-tests/*.mp4
+videos/*/edit/assets/footage/

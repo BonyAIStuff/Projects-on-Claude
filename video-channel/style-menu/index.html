@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explainer Style Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=Manrope:wght@500;800&family=Archivo:wght@500;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* Studio page: one dark neutral world so every palette preview reads true. Layout: numbered menu sections, each a row of selectable cards with live previews; picks summary at the end. */
+:root {
+  --page: #141517;
+  --panel: #1d1f22;
+  --line: #2c2f34;
+  --text: #ecebe7;
+  --muted: #9a9ca1;
+  --pick: #f2c14e;
+  --font-ui: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  /* Preview palette — rewritten by the chosen palette */
+  --pv-ground: #f2eee6;
+  --pv-ink: #121212;
+  --pv-accent: #e23d28;
+  --pv-second: #4a5560;
+  --pv-display: "Source Serif 4", Georgia, serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--page); color: var(--text); font-family: var(--font-ui); }
+body { padding: 0 16px 64px; }
+.wrap { max-width: 1080px; margin: 0 auto; display: grid; gap: 48px; }
+header { padding-top: 40px; display: grid; gap: 12px; }
+h1 { font-family: "Source Serif 4", Georgia, serif; font-size: clamp(30px, 5vw, 44px); margin: 0; text-wrap: balance; font-weight: 700; }
+.lede { color: var(--muted); max-width: 64ch; margin: 0; line-height: 1.55; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 13px; border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; color: var(--muted); }
+section { display: grid; gap: 16px; }
+.sec-head { display: grid; gap: 4px; border-top: 1px solid var(--line); padding-top: 20px; }
+.sec-head h2 { margin: 0; font-size: 22px; font-weight: 600; text-wrap: balance; }
+.sec-head h2 span { font-family: var(--font-mono); color: var(--pick); font-size: 15px; margin-right: 10px; }
+.sec-head p { margin: 0; color: var(--muted); font-size: 15px; max-width: 70ch; line-height: 1.5; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+.card { background: var(--panel); border: 2px solid var(--line); border-radius: 10px; padding: 0; text-align: left; color: inherit; font: inherit; cursor: pointer; display: grid; grid-template-rows: auto 1fr; overflow: hidden; transition: border-color .15s; }
+.card:hover { border-color: #4a4e55; }
+.card:focus-visible { outline: 3px solid var(--pick); outline-offset: 2px; }
+.card[aria-pressed="true"] { border-color: var(--pick); }
+.card .body { padding: 12px 14px 14px; display: grid; gap: 4px; align-content: start; }
+.card .name { font-weight: 600; display: flex; justify-content: space-between; gap: 8px; }
+.card .tick { color: var(--pick); visibility: hidden; font-family: var(--font-mono); font-size: 13px; }
+.card[aria-pressed="true"] .tick { visibility: visible; }
+.card .desc { color: var(--muted); font-size: 14px; line-height: 1.45; }
+.stage { aspect-ratio: 16 / 9; background: var(--pv-ground); color: var(--pv-ink); position: relative; overflow: hidden; display: grid; place-items: center; padding: 14px; }
+
+/* Palette swatches */
+.sw { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; width: 100%; height: 100%; }
+.sw div { display: flex; align-items: flex-end; padding: 6px; font-family: var(--font-mono); font-size: 10px; }
+.sw .title { position: absolute; left: 14px; top: 14px; font-size: 20px; font-weight: 700; max-width: 60%; line-height: 1.1; }
+
+/* Word highlight demos */
+.sent { font-family: var(--pv-display); font-size: 19px; line-height: 1.35; font-weight: 700; text-align: center; text-wrap: balance; }
+.sent .w { position: relative; display: inline-block; padding: 0 2px; z-index: 0; }
+.hl-marker .w.on::before { content: ""; position: absolute; inset: 55% -2px 2% -2px; background: var(--pv-accent); opacity: .55; z-index: -1; transform-origin: left; animation: sweep .25s ease-out both; }
+.hl-color .w { transition: color .12s; opacity: .45; }
+.hl-color .w.on, .hl-color .w.seen { opacity: 1; }
+.hl-color .w.on { color: var(--pv-accent); }
+.hl-underline .w.on::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 3px; background: var(--pv-accent); transform-origin: left; animation: sweep .2s ease-out both; }
+.hl-box .w.on { background: var(--pv-ink); color: var(--pv-ground); animation: pop .18s ease-out both; border-radius: 3px; }
+@keyframes sweep { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes pop { from { transform: scale(.85); } to { transform: scale(1); } }
+
+/* News article demos */
+.article { width: 88%; max-height: 100%; background: #fbfaf7; color: #1b1b1b; padding: 10px 12px; box-shadow: 0 6px 18px rgba(0,0,0,.25); font-family: Georgia, serif; position: relative; transform-origin: center; }
+.article .mast { font-family: var(--font-mono); font-size: 8px; letter-spacing: .12em; color: #666; border-bottom: 1px solid #ccc; padding-bottom: 4px; margin-bottom: 6px; }
+.article .hed { font-weight: 700; font-size: 12px; margin-bottom: 6px; line-height: 1.2; }
+.article .ln { font-size: 9.5px; line-height: 1.45; position: relative; transition: opacity .25s; }
+.article .ln span { position: relative; z-index: 1; }
+.news-marker .ln.on::before { content: ""; position: absolute; left: -2px; right: -2px; top: 10%; bottom: 5%; background: var(--pv-accent); opacity: .45; transform-origin: left; animation: sweep .5s ease-out both; }
+.news-focus .ln { opacity: .25; }
+.news-focus .ln.on { opacity: 1; }
+.news-focus .article { animation: drift 4s ease-in-out infinite alternate; }
+@keyframes drift { from { transform: scale(1); } to { transform: scale(1.08); } }
+.news-bracket .ln.on::after { content: ""; position: absolute; left: -9px; top: 1px; bottom: 1px; width: 3px; background: var(--pv-accent); animation: grow .3s ease-out both; transform-origin: top; }
+.news-bracket .ln.on span { text-decoration: underline; text-decoration-color: var(--pv-accent); text-decoration-thickness: 2px; text-underline-offset: 2px; }
+@keyframes grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.news-lift .ln.on { background: var(--pv-ground); color: var(--pv-ink); font-weight: 700; transform: scale(1.12) translateX(4%); box-shadow: 0 6px 14px rgba(0,0,0,.3); z-index: 2; padding: 1px 4px; transition: transform .3s, box-shadow .3s; }
+
+/* Transition demos */
+.tr { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--pv-display); font-weight: 700; font-size: 22px; }
+.tr.a { background: var(--pv-ground); color: var(--pv-ink); }
+.tr.b { background: var(--pv-ink); color: var(--pv-ground); }
+.t-cut .tr.b { animation: cutwhip 3s infinite; }
+@keyframes cutwhip { 0%,45% { transform: translateX(100%); filter: blur(0); } 50% { transform: translateX(0); filter: blur(4px); } 54%,95% { transform: translateX(0); filter: blur(0); } 100% { transform: translateX(-100%); } }
+.t-paper .tr.b { animation: paper 3s infinite; clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
+@keyframes paper { 0%,35% { clip-path: polygon(0 0,0 0,0 100%,0 100%); } 60%,90% { clip-path: polygon(0 0,110% 0,100% 100%,0 100%); } 100% { clip-path: polygon(0 0,110% 0,100% 100%,0 100%); } }
+.t-push .tr.a { animation: pushA 3s infinite; } .t-push .tr.b { animation: pushB 3s infinite; }
+@keyframes pushA { 0%,40% { transform: translateY(0); } 60%,100% { transform: translateY(-100%); } }
+@keyframes pushB { 0%,40% { transform: translateY(100%); } 60%,100% { transform: translateY(0); } }
+.t-zoom .tr.b { animation: zoomin 3s infinite; }
+@keyframes zoomin { 0%,40% { transform: scale(0); border-radius: 50%; } 65%,100% { transform: scale(1); border-radius: 0; } }
+
+/* Type pairing demos */
+.typo { display: grid; gap: 6px; width: 100%; padding: 0 8px; }
+.typo .d { font-size: 24px; line-height: 1.05; color: var(--pv-ink); }
+.typo .d em { font-style: normal; color: var(--pv-accent); }
+.typo .b { font-size: 11px; color: var(--pv-second); line-height: 1.4; }
+
+/* Signature demos */
+.sig { width: 100%; height: 100%; position: relative; font-family: var(--pv-display); }
+.dossier { position: absolute; inset: 16% 8%; border: 2px solid var(--pv-ink); display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 12px; padding: 10px 14px; }
+.dossier .num { font-size: 38px; font-weight: 700; color: var(--pv-accent); line-height: 1; }
+.dossier .lbl { font-size: 14px; line-height: 1.15; font-weight: 700; }
+.dossier .lbl small { display: block; font-family: var(--font-mono); font-size: 9px; letter-spacing: .14em; color: var(--pv-second); font-weight: 500; }
+.margin-note { position: absolute; inset: 0; display: grid; place-items: center; }
+.margin-note .txt { font-size: 17px; font-weight: 700; }
+.margin-note svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.margin-note path { fill: none; stroke: var(--pv-accent); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 520; animation: draw 3s ease-out infinite; }
+@keyframes draw { 0% { stroke-dashoffset: 520; } 45%,100% { stroke-dashoffset: 0; } }
+.statcard { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; gap: 2px; }
+.statcard .big { font-size: 46px; font-weight: 700; color: var(--pv-accent); font-variant-numeric: tabular-nums; line-height: 1; }
+.statcard .cap { font-family: var(--font-ui); font-size: 11px; color: var(--pv-second); }
+.chart { position: absolute; inset: 12% 8%; }
+.chart svg { width: 100%; height: 100%; }
+.chart .gridl { stroke: var(--pv-second); opacity: .3; stroke-width: 1; }
+.chart .ln { fill: none; stroke: var(--pv-accent); stroke-width: 3; stroke-dasharray: 400; animation: draw2 3s ease-out infinite; }
+@keyframes draw2 { 0% { stroke-dashoffset: 400; } 60%,100% { stroke-dashoffset: 0; } }
+
+/* Sound + music */
+.sound { background: var(--pv-ground); color: var(--pv-ink); display: grid; align-content: center; gap: 8px; padding: 14px; aspect-ratio: 16 / 9; }
+.sound .list { font-family: var(--font-mono); font-size: 12px; line-height: 1.6; color: var(--pv-second); }
+.play { justify-self: start; font: 600 13px var(--font-ui); background: var(--pv-ink); color: var(--pv-ground); border: 0; border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+.play:focus-visible { outline: 3px solid var(--pick); outline-offset: 2px; }
+.bpm { font-family: var(--font-mono); font-size: 12px; color: var(--pv-accent); }
+
+/* Summary */
+.summary { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: grid; gap: 14px; }
+.summary h2 { margin: 0; font-size: 22px; }
+.summary dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; margin: 0; font-size: 15px; }
+.summary dt { color: var(--muted); }
+.summary dd { margin: 0; }
+.summary dd.none { color: #c46a5a; }
+textarea { width: 100%; min-height: 90px; background: var(--page); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 10px; font: 15px/1.5 var(--font-ui); }
+textarea:focus-visible { outline: 2px solid var(--pick); }
+.actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.copy { font: 600 15px var(--font-ui); background: var(--pick); color: #1a1a1a; border: 0; border-radius: 8px; padding: 10px 18px; cursor: pointer; }
+.copy:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.status { color: var(--muted); font-size: 14px; }
+pre.out { white-space: pre-wrap; background: var(--page); border: 1px solid var(--line); border-radius: 8px; padding: 12px; font: 13px/1.5 var(--font-mono); color: var(--muted); margin: 0; }
+@media (max-width: 420px) { .summary dl { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0s !important; animation-iteration-count: 1 !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Pick your explainer style</h1>
+    <p class="lede">Choose one card in each section. Your colour pick recolours every preview below, so you can see the whole look come together. When you're done, press <strong>Copy my picks</strong> at the bottom and paste the text back into the chat.</p>
+    <div class="chips"><span class="chip">Smart &amp; premium</span><span class="chip">Vox / Economist inspired</span><span class="chip">Cinematic tension music</span><span class="chip">Talking head + B-roll + news highlights</span></div>
+  </header>
+
+  <section data-key="palette">
+    <div class="sec-head"><h2><span>01</span>Colour palette</h2><p>The background for graphics, the text colour, and the one accent used for highlights. Premium looks use a single accent sparingly.</p></div>
+    <div class="grid" id="palettes"></div>
+  </section>
+
+  <section data-key="type">
+    <div class="sec-head"><h2><span>02</span>Typography</h2><p>The headline font sets the personality; the body font is for labels and lower-thirds.</p></div>
+    <div class="grid" id="types"></div>
+  </section>
+
+  <section data-key="words">
+    <div class="sec-head"><h2><span>03</span>Word-by-word highlight</h2><p>How the on-screen text follows what you're saying. Each demo plays at a speaking pace.</p></div>
+    <div class="grid" id="words"></div>
+  </section>
+
+  <section data-key="news">
+    <div class="sec-head"><h2><span>04</span>News article highlight</h2><p>How a screenshot of a real article is shown while you read lines from it. The sample article below is made up.</p></div>
+    <div class="grid" id="news"></div>
+  </section>
+
+  <section data-key="transition">
+    <div class="sec-head"><h2><span>05</span>Transitions</h2><p>How you move between talking head, B-roll and graphics. Pick the one that becomes your habit.</p></div>
+    <div class="grid" id="transitions"></div>
+  </section>
+
+  <section data-key="signature">
+    <div class="sec-head"><h2><span>06</span>Signature element</h2><p>The recurring graphic people will recognise as yours.</p></div>
+    <div class="grid" id="signatures"></div>
+  </section>
+
+  <section data-key="sfx">
+    <div class="sec-head"><h2><span>07</span>Sound effects set</h2><p>Previews are rough synthesised sketches of the feel, not the final sounds.</p></div>
+    <div class="grid" id="sfx"></div>
+  </section>
+
+  <section data-key="music">
+    <div class="sec-head"><h2><span>08</span>Music: cinematic tension, which flavour?</h2><p>The bed under your voice. We'll source real tracks once you pick a flavour.</p></div>
+    <div class="grid" id="music"></div>
+  </section>
+
+  <section class="summary" aria-live="polite">
+    <h2>Your picks</h2>
+    <dl id="sumlist"></dl>
+    <label for="notes" class="status">Anything to tweak or mix? (e.g. "palette 2 but with the red accent from palette 1")</label>
+    <textarea id="notes" placeholder="Optional notes"></textarea>
+    <div class="actions"><button class="copy" id="copy" type="button">Copy my picks</button><span class="status" id="copystatus">Copies the text below so you can paste it in the chat.</span></div>
+    <pre class="out" id="out"></pre>
+  </section>
+</div>
+
+<script>
+const PALETTES = [
+  { id: "broadsheet", name: "Broadsheet", desc: "Newsprint white, ink black, signal red. Editorial and authoritative.", c: ["#f2eee6", "#121212", "#e23d28", "#55606b"], title: "Why Netflix killed password sharing" },
+  { id: "midnight", name: "Midnight Ledger", desc: "Deep navy, warm white, amber accent. Calm, premium, cinematic.", c: ["#0d1b2a", "#f3efe6", "#f2a541", "#7f97ad"], title: "The $4 billion pricing mistake" },
+  { id: "boardroom", name: "Boardroom Cobalt", desc: "Charcoal, white, electric cobalt. Modern, tech-finance.", c: ["#17191d", "#f5f6f8", "#4a74ff", "#8a919c"], title: "How Costco makes money on $1.50 hot dogs" },
+  { id: "highlighter", name: "Annotated Paper", desc: "Bright paper, black text, highlighter yellow, deep green. Clear, teacher-like.", c: ["#fafaf6", "#111111", "#ffd84a", "#1d5c4b"], title: "The strategy behind free trials" }
+];
+const TYPES = [
+  { id: "serif", name: "Editorial serif", desc: "Source Serif headlines with Plex Sans labels. Magazine authority.", d: '"Source Serif 4", Georgia, serif', w: 700 },
+  { id: "condensed", name: "Condensed news", desc: "Barlow Condensed headlines. Punchy, broadcast-news energy.", d: '"Barlow Condensed", "Arial Narrow", sans-serif', w: 700, up: true },
+  { id: "geometric", name: "Clean geometric", desc: "Manrope extra-bold. Modern startup clarity.", d: 'Manrope, system-ui, sans-serif', w: 800 },
+  { id: "grotesk", name: "Swiss grotesk", desc: "Archivo extra-bold. Neutral, data-journalism feel.", d: 'Archivo, Helvetica, sans-serif', w: 800 }
+];
+const WORDS = [
+  { id: "marker", cls: "hl-marker", name: "Highlighter sweep", desc: "A marker stroke sweeps under each spoken word." },
+  { id: "color", cls: "hl-color", name: "Colour shift", desc: "Words fade up as spoken; the active word takes the accent." },
+  { id: "underline", cls: "hl-underline", name: "Underline draw", desc: "A crisp line draws under the active word. Very restrained." },
+  { id: "box", cls: "hl-box", name: "Inverted box", desc: "The active word flips into a solid block. Bold and punchy." }
+];
+const NEWS = [
+  { id: "marker", cls: "news-marker", name: "Marker line by line", desc: "Each quoted line gets a highlighter pass as you read it." },
+  { id: "focus", cls: "news-focus", name: "Spotlight and push-in", desc: "Everything dims except the active line; the camera slowly pushes in." },
+  { id: "bracket", cls: "news-bracket", name: "Red-pen bracket", desc: "A margin bar and underline, like an editor's annotation." },
+  { id: "lift", cls: "news-lift", name: "Line lifts off the page", desc: "The quoted line pops out as a card in your palette." }
+];
+const TRANSITIONS = [
+  { id: "whip", cls: "t-cut", name: "Hard cut + whip", desc: "Fast horizontal whip with motion blur. Keeps pace high." },
+  { id: "paper", cls: "t-paper", name: "Angled wipe", desc: "A slanted edge wipes across, like a page turning." },
+  { id: "push", cls: "t-push", name: "Clean push", desc: "The next shot pushes the last one off. Vox-style tidy." },
+  { id: "zoom", cls: "t-zoom", name: "Iris zoom", desc: "The next scene grows out of a point. Good for 'zooming into' a topic." }
+];
+const SIGS = [
+  { id: "dossier", name: "Chapter dossier cards", desc: "Big numbered chapter cards framed like a case file." },
+  { id: "margin", name: "Hand-drawn annotations", desc: "Circles and arrows drawn over footage and articles." },
+  { id: "stat", name: "Stat counter cards", desc: "Key numbers count up full-screen, with the source underneath." },
+  { id: "chart", name: "Animated line charts", desc: "Simple trend lines draw on to show what changed." }
+];
+const SFX = [
+  { id: "minimal", name: "Minimal clicks", desc: "Soft ticks and clicks on text. Barely there, very premium.", list: "tick · soft click · light pop", play: "click" },
+  { id: "paper", name: "Paper and pen", desc: "Paper slides, marker squeaks on highlights. Pairs with articles.", list: "paper slide · marker squeak · page flip", play: "paper" },
+  { id: "cinematic", name: "Cinematic hits", desc: "Low booms on reveals, risers into chapters. Dramatic.", list: "sub boom · riser · reverse swell", play: "boom" },
+  { id: "newsroom", name: "Newsroom", desc: "Typewriter keys, teletype blips, camera shutter on screenshots.", list: "typewriter · teletype blip · shutter", play: "type" }
+];
+const MUSIC = [
+  { id: "pulse", name: "Pulse and pads", desc: "Steady synth pulse under long string pads. Momentum without distraction.", bpm: "90–110 BPM · minor key", play: "pulse" },
+  { id: "clock", name: "Ticking suspense", desc: "Clock-like percussion and low drones. 'Something is about to happen.'", bpm: "100–120 BPM · sparse", play: "tick" },
+  { id: "piano", name: "Documentary piano", desc: "Sparse piano over soft strings. Thoughtful, investigative.", bpm: "70–85 BPM · minor", play: "piano" },
+  { id: "dark", name: "Dark electronic", desc: "Gritty bass and textures. Modern, edgier take on tension.", bpm: "95–105 BPM · low end", play: "bass" }
+];
+
+const picks = { palette: "broadsheet" };
+const labels = { palette: "Colour palette", type: "Typography", words: "Word highlight", news: "News highlight", transition: "Transition", signature: "Signature element", sfx: "Sound effects", music: "Music flavour" };
+const names = {};
+
+function card(key, item, stageHTML) {
+  names[key + ":" + item.id] = item.name;
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "card"; b.dataset.key = key; b.dataset.id = item.id;
+  b.setAttribute("aria-pressed", picks[key] === item.id ? "true" : "false");
+  b.innerHTML = stageHTML + '<div class="body"><div class="name">' + item.name + '<span class="tick">PICKED</span></div><div class="desc">' + item.desc + '</div></div>';
+  b.addEventListener("click", (e) => { if (e.target.closest(".play")) return; choose(key, item.id); });
+  return b;
+}
+
+function choose(key, id) {
+  picks[key] = id;
+  document.querySelectorAll('.card[data-key="' + key + '"]').forEach(c => c.setAttribute("aria-pressed", c.dataset.id === id ? "true" : "false"));
+  if (key === "palette") applyPalette(id);
+  if (key === "type") applyType(id);
+  renderSummary();
+}
+
+function applyPalette(id) {
+  const p = PALETTES.find(x => x.id === id), r = document.documentElement.style;
+  r.setProperty("--pv-ground", p.c[0]); r.setProperty("--pv-ink", p.c[1]); r.setProperty("--pv-accent", p.c[2]); r.setProperty("--pv-second", p.c[3]);
+}
+function applyType(id) {
+  const t = TYPES.find(x => x.id === id);
+  document.documentElement.style.setProperty("--pv-display", t.d);
+}
+
+// 01 palettes — each card shows its own colours, independent of the current pick
+const pg = document.getElementById("palettes");
+PALETTES.forEach(p => {
+  const stage = '<div class="stage" style="padding:0;background:' + p.c[0] + '"><div class="sw">' +
+    p.c.map((c, i) => '<div style="background:' + c + ';color:' + (i === 1 ? p.c[0] : p.c[1]) + '">' + c + '</div>').join("") +
+    '</div><div class="title" style="color:' + p.c[1] + ';font-family:\'Source Serif 4\',serif">' + p.title.replace(/(\S+)$/, '<span style="color:' + p.c[2] + '">$1</span>') + '</div></div>';
+  pg.appendChild(card("palette", p, stage));
+});
+
+// 02 type
+const tg = document.getElementById("types");
+TYPES.forEach(t => {
+  const txt = t.up ? "THE HIDDEN COST OF <em>FREE</em>" : "The hidden cost of <em>free</em>";
+  const stage = '<div class="stage"><div class="typo"><div class="d" style="font-family:' + t.d.replace(/"/g, "'") + ';font-weight:' + t.w + '">' + txt + '</div><div class="b" style="font-family:\'IBM Plex Sans\',sans-serif">Lower-third · Head of Strategy, 12 years in retail pricing</div></div></div>';
+  tg.appendChild(card("type", t, stage));
+});
+
+// 03 word highlights
+const SENTENCE = "Amazon loses money on every Kindle it sells on purpose".split(" ");
+const wg = document.getElementById("words");
+WORDS.forEach(w => {
+  const stage = '<div class="stage"><div class="sent ' + w.cls + '">' + SENTENCE.map(x => '<span class="w">' + x + '</span>').join(" ") + '</div></div>';
+  wg.appendChild(card("words", w, stage));
+});
+
+// 04 news
+const LINES = ["The company said subscription revenue rose 31% year over year,", "even as it cut prices in four of its largest markets.", "Analysts called the move “a deliberate land grab”", "aimed at locking customers in before rivals react."];
+const ng = document.getElementById("news");
+NEWS.forEach(n => {
+  const stage = '<div class="stage ' + n.cls + '" style="background:var(--pv-second)"><div class="article"><div class="mast">SAMPLE BUSINESS DAILY · MARKETS</div><div class="hed">Streaming giant cuts prices and still grows revenue</div>' + LINES.map(l => '<div class="ln"><span>' + l + '</span></div>').join("") + '</div></div>';
+  ng.appendChild(card("news", n, stage));
+});
+
+// 05 transitions
+const trg = document.getElementById("transitions");
+TRANSITIONS.forEach(t => {
+  const stage = '<div class="stage ' + t.cls + '" style="padding:0"><div class="tr a">Talking head</div><div class="tr b">B-roll</div></div>';
+  trg.appendChild(card("transition", t, stage));
+});
+
+// 06 signatures
+const sg = document.getElementById("signatures");
+const sigStage = {
+  dossier: '<div class="sig"><div class="dossier"><div class="num">03</div><div class="lbl"><small>CHAPTER · THE PLAYBOOK</small>Lock-in before price</div></div></div>',
+  margin: '<div class="sig margin-note"><div class="txt">Gross margin: 61%</div><svg viewBox="0 0 300 170" preserveAspectRatio="none"><path d="M60 95 C 50 50, 250 45, 245 92 C 240 130, 70 135, 58 100 M 250 60 L 285 25 M 285 25 L 270 27 M 285 25 L 283 40"/></svg></div>',
+  stat: '<div class="sig statcard"><div class="big" data-count="73">0%</div><div class="cap">of users never cancel a free trial · Source: placeholder</div></div>',
+  chart: '<div class="sig chart"><svg viewBox="0 0 300 150" preserveAspectRatio="none"><line class="gridl" x1="0" y1="37" x2="300" y2="37"/><line class="gridl" x1="0" y1="75" x2="300" y2="75"/><line class="gridl" x1="0" y1="112" x2="300" y2="112"/><path class="ln" d="M0 130 L60 118 L120 122 L180 80 L240 55 L300 20"/></svg></div>'
+};
+SIGS.forEach(s => sg.appendChild(card("signature", s, '<div class="stage">' + sigStage[s.id] + '</div>')));
+
+// 07 sfx + 08 music
+let ctx;
+function ac() { if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)(); return ctx; }
+function noise(dur, filt, freq, gainV, t0) {
+  const a = ac(), buf = a.createBuffer(1, a.sampleRate * dur, a.sampleRate), d = buf.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = (Math.sin(i * 12.9898) * 43758.5453 % 1) * 2 - 1;
+  const s = a.createBufferSource(); s.buffer = buf;
+  const f = a.createBiquadFilter(); f.type = filt; f.frequency.value = freq;
+  const g = a.createGain(); g.gain.setValueAtTime(gainV, t0); g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+  s.connect(f).connect(g).connect(a.destination); s.start(t0);
+}
+function tone(freq, dur, type, gainV, t0, slide) {
+  const a = ac(), o = a.createOscillator(), g = a.createGain();
+  o.type = type; o.frequency.setValueAtTime(freq, t0); if (slide) o.frequency.exponentialRampToValueAtTime(slide, t0 + dur);
+  g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(gainV, t0 + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+  o.connect(g).connect(a.destination); o.start(t0); o.stop(t0 + dur + 0.05);
+}
+const SOUNDS = {
+  click: t => { tone(2200, .05, "square", .08, t); tone(1500, .05, "square", .06, t + .35); tone(900, .08, "sine", .12, t + .7); },
+  paper: t => { noise(.35, "bandpass", 2500, .35, t); tone(1800, .18, "sawtooth", .03, t + .5, 2400); noise(.25, "highpass", 4000, .25, t + .8); },
+  boom: t => { tone(80, 1.2, "sine", .6, t, 35); noise(1.0, "lowpass", 300, .3, t); tone(200, 1.2, "sawtooth", .04, t + 1.3, 1200); },
+  type: t => { for (let i = 0; i < 6; i++) noise(.04, "highpass", 3000, .4, t + i * .11); tone(1200, .06, "square", .05, t + .8); noise(.08, "bandpass", 1800, .5, t + 1.1); },
+  pulse: t => { for (let i = 0; i < 8; i++) tone(110, .18, "sawtooth", .07, t + i * .3); tone(220, 2.4, "triangle", .05, t); tone(261.6, 2.4, "triangle", .04, t); },
+  tick: t => { for (let i = 0; i < 8; i++) noise(.03, "highpass", 5000, .5, t + i * .28); tone(55, 2.4, "sine", .25, t); },
+  piano: t => { [220, 261.6, 329.6, 293.7, 261.6].forEach((f, i) => tone(f, 1.2, "triangle", .15, t + i * .45)); tone(110, 2.6, "sine", .06, t); },
+  bass: t => { for (let i = 0; i < 4; i++) tone(55, .5, "sawtooth", .15, t + i * .6, 45); noise(2.4, "lowpass", 600, .05, t); }
+};
+function soundCard(key, item, extra) {
+  const stage = '<div class="sound"><div class="list">' + extra + '</div><button type="button" class="play" data-sound="' + item.play + '" aria-label="Play sketch of ' + item.name + '">&#9654; Play sketch</button></div>';
+  return card(key, item, stage);
+}
+const fg = document.getElementById("sfx");
+SFX.forEach(s => fg.appendChild(soundCard("sfx", s, s.list)));
+const mg = document.getElementById("music");
+MUSIC.forEach(m => mg.appendChild(soundCard("music", m, '<span class="bpm">' + m.bpm + '</span>')));
+document.addEventListener("click", e => {
+  const b = e.target.closest(".play"); if (!b) return;
+  try { const a = ac(); if (a.state === "suspended") a.resume(); SOUNDS[b.dataset.sound](a.currentTime + .05); } catch (err) { b.textContent = "Sound unavailable here"; }
+});
+
+// Animations driven by JS: word-by-word and line-by-line cycles
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function cycle(selector, itemSel, stepMs, holdSteps) {
+  document.querySelectorAll(selector).forEach(root => {
+    const items = root.querySelectorAll(itemSel);
+    if (reduce) { items.forEach((x, i) => x.classList.toggle("on", i === 2)); return; }
+    let i = 0;
+    setInterval(() => {
+      const n = items.length;
+      items.forEach((x, k) => { x.classList.toggle("on", k === i); x.classList.toggle("seen", k < i); });
+      i = (i + 1) % (n + holdSteps);
+    }, stepMs);
+  });
+}
+cycle(".sent", ".w", 330, 3);
+cycle(".article", ".ln", 1100, 1);
+
+// Stat count-up
+function countUp() {
+  document.querySelectorAll("[data-count]").forEach(el => {
+    const target = +el.dataset.count; let v = 0;
+    if (reduce) { el.textContent = target + "%"; return; }
+    const run = () => { v = 0; const id = setInterval(() => { v += 3; if (v >= target) { v = target; clearInterval(id); setTimeout(run, 1500); } el.textContent = v + "%"; }, 30); };
+    run();
+  });
+}
+countUp();
+
+// Summary
+function summaryText() {
+  const lines = ["MY STYLE PICKS"];
+  Object.keys(labels).forEach(k => lines.push(labels[k] + ": " + (picks[k] ? names[k + ":" + picks[k]] : "(not picked)")));
+  const n = document.getElementById("notes").value.trim();
+  if (n) lines.push("Notes: " + n);
+  return lines.join("\n");
+}
+function renderSummary() {
+  const dl = document.getElementById("sumlist"); dl.innerHTML = "";
+  Object.keys(labels).forEach(k => {
+    const dt = document.createElement("dt"); dt.textContent = labels[k];
+    const dd = document.createElement("dd");
+    if (picks[k]) dd.textContent = names[k + ":" + picks[k]]; else { dd.textContent = "Not picked yet"; dd.className = "none"; }
+    dl.append(dt, dd);
+  });
+  document.getElementById("out").textContent = summaryText();
+}
+document.getElementById("notes").addEventListener("input", renderSummary);
+document.getElementById("copy").addEventListener("click", async () => {
+  const st = document.getElementById("copystatus");
+  try { await navigator.clipboard.writeText(summaryText()); st.textContent = "Copied. Paste it into the chat."; }
+  catch (e) { st.textContent = "Copy was blocked here. Select the text below and copy it manually."; }
+});
+applyPalette(picks.palette);
+renderSummary();
+</script>
+</body>
+</html>

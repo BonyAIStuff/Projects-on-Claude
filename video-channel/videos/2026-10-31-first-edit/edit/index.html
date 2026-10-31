@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      /* First edit — Broadsheet style A: soft newsprint highlighter, red only for hand-drawn notes. */
+      @font-face { font-family: "Archivo"; font-weight: 500; src: url("assets/fonts/archivo-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Archivo"; font-weight: 800; src: url("assets/fonts/archivo-latin-800-normal.woff2") format("woff2"); }
+      :root {
+        --ground: #f2eee6;
+        --ink: #121212;
+        --second: #55606b;
+        --desk: #dcd6ca;
+        --hl: #efe0a6;
+        --annot: #d23a26;
+        --font: "Archivo", "Helvetica Neue", Arial, sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ground); }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; font-family: var(--font); color: var(--ink); }
+      .scene { position: absolute; inset: 0; overflow: hidden; }
+      .inner { position: absolute; inset: 0; }
+
+      /* Talking head */
+      #thwrap { position: absolute; inset: 0; transform-origin: 50% 35%; }
+      #th { position: absolute; inset: 0; width: 1920px; height: 1080px; object-fit: cover; }
+
+      /* Captions */
+      .cap { position: absolute; left: 192px; right: 192px; bottom: 150px; text-align: center; }
+      .cap .line { font: 800 78px/1.15 var(--font); letter-spacing: -0.02em; color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,.55); }
+      .w { position: relative; display: inline-block; padding: 0 6px; }
+      .w .wt { position: relative; }
+      .w .hl { position: absolute; left: 0; right: 0; top: 8%; bottom: 4%; background: var(--hl); transform-origin: left center; }
+
+      /* B-roll: zero-fee UPI since 2020 */
+      #broll .inner { background: var(--ground); }
+      #phone { position: absolute; left: 330px; top: 150px; width: 400px; height: 780px; border: 10px solid var(--ink); border-radius: 56px; background: #fff; padding: 90px 36px 40px; }
+      #phone .notch { position: absolute; left: 140px; top: 18px; width: 100px; height: 22px; border-radius: 12px; background: var(--ink); }
+      #phone .paid { font: 500 30px var(--font); color: var(--second); }
+      #phone .amt { font: 800 92px/1.05 var(--font); letter-spacing: -0.03em; margin: 8px 0 26px; }
+      #phone .row { font: 500 30px/1.3 var(--font); display: flex; justify-content: space-between; border-top: 2px solid #e2ddd3; padding: 18px 0; }
+      #phone .row b { font-weight: 800; }
+      #feeRow { position: relative; }
+      #feeRow .hl { position: absolute; left: -10px; right: -10px; top: 8px; bottom: 8px; background: var(--hl); transform-origin: left center; z-index: 0; }
+      #feeRow span, #feeRow b { position: relative; z-index: 1; }
+      #yr { position: absolute; left: 900px; top: 300px; }
+      #yr .kicker { font: 500 34px var(--font); letter-spacing: .16em; color: var(--second); }
+      #yr .big { font: 800 300px/1 var(--font); letter-spacing: -0.05em; }
+      #yr .sub { font: 500 44px var(--font); margin-top: 6px; }
+
+      /* Newspaper */
+      #news .inner { background: var(--desk); }
+      #paper { position: absolute; left: 330px; top: 110px; width: 1260px; padding: 64px 84px 72px; background: #fbfaf7; box-shadow: 0 30px 70px rgba(0,0,0,.22); transform-origin: 40% 72%; }
+      #paper .mast { font: 500 28px var(--font); letter-spacing: .2em; color: #5e5e5e; border-bottom: 2px solid #d9d4ca; padding-bottom: 18px; margin-bottom: 28px; }
+      #paper .hed { font: 800 62px/1.08 var(--font); letter-spacing: -0.02em; margin-bottom: 18px; }
+      #paper .dek { font: 500 30px/1.4 var(--font); color: var(--second); margin-bottom: 36px; }
+      #paper .ln { font: 500 38px/1.5 Georgia, "Times New Roman", serif; color: #1c1c1c; opacity: .22; margin-bottom: 16px; }
+      #sample { position: absolute; right: 120px; bottom: 64px; font: 500 28px var(--font); letter-spacing: .12em; color: var(--ink); }
+
+      /* Poll */
+      #poll .inner { background: var(--ground); }
+      #pollbox { position: absolute; left: 300px; top: 130px; width: 1320px; }
+      #pollbox .kicker { font: 500 32px var(--font); letter-spacing: .18em; color: var(--second); }
+      #pollbox .title { font: 800 108px/1.05 var(--font); letter-spacing: -0.03em; margin: 12px 0 30px; }
+      #pollbox .title .w { padding: 0 8px; }
+      #pollbox .q { font: 500 46px/1.3 var(--font); margin-bottom: 34px; }
+      #pollbox .q b { font-weight: 800; }
+      .opt { display: flex; align-items: center; gap: 28px; border: 4px solid var(--ink); padding: 26px 34px; margin-bottom: 22px; width: 1040px; background: #fbfaf7; }
+      .opt .letter { font: 800 44px var(--font); width: 64px; height: 64px; border: 4px solid var(--ink); border-radius: 50%; display: grid; place-items: center; }
+      .opt .txt { font: 800 52px var(--font); }
+      #annot { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+      #annot path { fill: none; stroke: var(--annot); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+      #cta { position: absolute; left: 1420px; top: 760px; width: 420px; font: 800 52px/1.1 var(--font); color: var(--annot); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="19" data-width="1920" data-height="1080">
+
+      <!-- A-roll -->
+      <div id="thwrap">
+        <video id="th" class="clip" src="assets/footage/talking-head-clean.mp4" data-start="0" data-duration="5.3" data-has-audio="true" playsinline data-track-index="0"></video>
+      </div>
+
+      <!-- Captions -->
+      <div id="cap1" class="cap clip" data-start="0.15" data-duration="1.8" data-track-index="4"><div class="line">
+        <span class="w" id="c1w0"><span class="wt">UPI</span></span>
+        <span class="w" id="c1w1"><span class="wt">just</span></span>
+        <span class="w" id="c1w2"><span class="wt">got</span></span>
+        <span class="w" id="c1w3"><span class="wt">its</span></span>
+        <span class="w" id="c1w4"><span class="hl" id="c1h4"></span><span class="wt">price</span></span>
+        <span class="w" id="c1w5"><span class="hl" id="c1h5"></span><span class="wt">tag</span></span>
+      </div></div>
+      <div id="cap3" class="cap clip" data-start="3.12" data-duration="1.03" data-track-index="4"><div class="line">
+        <span class="w" id="c3w0"><span class="wt">and</span></span>
+        <span class="w" id="c3w1"><span class="wt">the</span></span>
+        <span class="w" id="c3w2"><span class="hl" id="c3h2"></span><span class="wt">industry</span></span>
+        <span class="w" id="c3w3"><span class="wt">is</span></span>
+        <span class="w" id="c3w4"><span class="wt">still</span></span>
+      </div></div>
+      <div id="cap4" class="cap clip" data-start="4.15" data-duration="0.97" data-track-index="4"><div class="line">
+        <span class="w" id="c4w0"><span class="wt">on</span></span>
+        <span class="w" id="c4w1"><span class="wt">this</span></span>
+        <span class="w" id="c4w2"><span class="hl" id="c4h2"></span><span class="wt">decision.</span></span>
+      </div></div>
+
+      <!-- B-roll cutaway over "since 2020" -->
+      <div id="broll" class="scene clip" data-start="1.95" data-duration="1.17" data-track-index="1">
+        <div class="inner" id="brolli">
+          <div id="phone">
+            <div class="notch"></div>
+            <div class="paid">Paid via UPI</div>
+            <div class="amt">&#8377;250</div>
+            <div class="row"><span>To</span><b>Corner Store</b></div>
+            <div class="row" id="feeRow"><span class="hl" id="feeHl"></span><span>Merchant fee</span><b>&#8377;0</b></div>
+          </div>
+          <div id="yr"><div class="kicker">ZERO-FEE UPI SINCE</div><div class="big" id="yrBig">2020</div><div class="sub">for every merchant</div></div>
+        </div>
+      </div>
+
+      <!-- Newspaper -->
+      <div id="news" class="scene clip" data-start="5.1" data-duration="8.4" data-track-index="2">
+        <div class="inner" id="newsi">
+          <div id="paper">
+            <div class="mast">SAMPLE BUSINESS DAILY &middot; PAYMENTS</div>
+            <div class="hed">UPI's zero-fee era may be ending for big merchants</div>
+            <div class="dek">Sample article recreated for this style demo.</div>
+            <p class="ln" id="ln0">Since January 2020, merchants have paid no fee on UPI payments.</p>
+            <p class="ln" id="ln1">A proposed 0.4% charge on large merchants has split the industry.</p>
+          </div>
+          <div id="sample">SAMPLE ARTICLE</div>
+        </div>
+      </div>
+
+      <!-- Poll + CTA -->
+      <div id="poll" class="scene clip" data-start="13.25" data-duration="5.75" data-track-index="3">
+        <div class="inner" id="polli">
+          <div id="pollbox">
+            <div class="kicker">WHAT DO YOU THINK?</div>
+            <div class="title">The industry is <span class="w" id="splitW"><span class="hl" id="splitHl"></span><span class="wt">split</span></span></div>
+            <div class="q">The <b>0.4%</b> UPI MDR on large merchants is&hellip;</div>
+            <div class="opt" id="optA"><div class="letter">A</div><div class="txt">Long overdue</div></div>
+            <div class="opt" id="optB"><div class="letter">B</div><div class="txt">A tax on digital India</div></div>
+          </div>
+          <svg id="annot" viewBox="0 0 1920 1080">
+            <path id="circ" d="M380 350 C 372 312, 512 306, 526 338 C 538 368, 488 390, 438 390 C 392 390, 368 372, 386 344" />
+            <path id="arrow" d="M1500 750 C 1460 700, 1420 690, 1370 690 M1370 690 L 1410 668 M1370 690 L 1406 716" />
+          </svg>
+          <div id="cta">Vote A or B in the comments</div>
+        </div>
+      </div>
+
+      <!-- Sound -->
+      <audio id="music1" class="clip" src="assets/audio/music.wav" data-start="0" data-duration="5.3" data-volume="0.28" data-track-index="6"></audio>
+      <audio id="music2" class="clip" src="assets/audio/music.wav" data-start="5.3" data-duration="13.7" data-media-start="5.3" data-volume="0.6" data-fade-out="1.5" data-track-index="6"></audio>
+      <audio id="sfx-click1" class="clip" src="assets/sfx/click-soft.mp3" data-start="0.2" data-duration="0.37" data-volume="0.25" data-track-index="7"></audio>
+      <audio id="sfx-whoosh1" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="1.85" data-duration="0.57" data-volume="0.35" data-track-index="8"></audio>
+      <audio id="sfx-key1" class="clip" src="assets/sfx/key-press.mp3" data-start="2.3" data-duration="0.4" data-volume="0.3" data-track-index="9"></audio>
+      <audio id="sfx-whoosh2" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="2.85" data-duration="0.57" data-volume="0.3" data-track-index="8"></audio>
+      <audio id="sfx-whoosh3" class="clip" src="assets/sfx/whoosh.mp3" data-start="5.0" data-duration="0.57" data-volume="0.45" data-track-index="8"></audio>
+      <audio id="sfx-hit" class="clip" src="assets/sfx/impact-bass-2.mp3" data-start="4.85" data-duration="2.59" data-volume="0.22" data-track-index="10"></audio>
+      <audio id="sfx-type1" class="clip" src="assets/sfx/typing.mp3" data-start="5.8" data-duration="1.2" data-volume="0.18" data-fade-out="0.4" data-track-index="9"></audio>
+      <audio id="sfx-type2" class="clip" src="assets/sfx/typing.mp3" data-start="9.5" data-duration="1.2" data-volume="0.18" data-fade-out="0.4" data-track-index="9"></audio>
+      <audio id="sfx-whoosh4" class="clip" src="assets/sfx/whoosh.mp3" data-start="13.15" data-duration="0.57" data-volume="0.45" data-track-index="8"></audio>
+      <audio id="sfx-pop1" class="clip" src="assets/sfx/pop.mp3" data-start="14.9" data-duration="0.72" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx-pop2" class="clip" src="assets/sfx/pop.mp3" data-start="15.3" data-duration="0.72" data-volume="0.35" data-track-index="7"></audio>
+      <audio id="sfx-ping" class="clip" src="assets/sfx/ping.mp3" data-start="16.0" data-duration="1.32" data-volume="0.25" data-track-index="10"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // A-roll: slow push-in, then a punch-in on "and the industry"
+      tl.fromTo("#thwrap", { scale: 1 }, { scale: 1.05, duration: 3.1, ease: "none" }, 0);
+      tl.set("#thwrap", { scale: 1.14 }, 3.12);
+      tl.to("#thwrap", { scale: 1.17, duration: 2.0, ease: "none" }, 3.12);
+
+      // Captions: word reveals at the spoken times; highlighter on key words
+      const word = (id, t) => tl.fromTo(id, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.18, ease: "power3.out" }, t);
+      const mark = (hl, w, t) => {
+        tl.fromTo(hl, { scaleX: 0 }, { scaleX: 1, duration: 0.26, ease: "power2.out" }, t + 0.05);
+        tl.fromTo(w + " .wt", { color: "#ffffff", textShadow: "0 2px 20px rgba(0,0,0,.55)" }, { color: "#121212", textShadow: "0 0 0 rgba(0,0,0,0)", duration: 0.15 }, t + 0.16);
+      };
+      [["#c1w0", .22], ["#c1w1", .75], ["#c1w2", .95], ["#c1w3", 1.15], ["#c1w4", 1.5], ["#c1w5", 1.72]].forEach(([id, t]) => word(id, t));
+      mark("#c1h4", "#c1w4", 1.5); mark("#c1h5", "#c1w5", 1.72);
+      [["#c3w0", 3.15], ["#c3w1", 3.25], ["#c3w2", 3.33], ["#c3w3", 3.65], ["#c3w4", 3.8]].forEach(([id, t]) => word(id, t));
+      mark("#c3h2", "#c3w2", 3.33);
+      [["#c4w0", 4.2], ["#c4w1", 4.35], ["#c4w2", 4.6]].forEach(([id, t]) => word(id, t));
+      mark("#c4h2", "#c4w2", 4.6);
+
+      // B-roll whip in/out, payment row highlight, 2020 lands on "twenty twenty"
+      tl.fromTo("#brolli", { xPercent: 100, skewX: 8 }, { xPercent: 0, skewX: 0, duration: 0.24, ease: "power3.out" }, 1.95);
+      tl.fromTo("#feeHl", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 2.3);
+      tl.fromTo("#yr", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 2.2);
+      tl.to("#brolli", { xPercent: -100, skewX: 8, duration: 0.2, ease: "power3.in" }, 2.92);
+
+      // Whip to the newspaper
+      tl.to("#thwrap", { xPercent: -100, duration: 0.3, ease: "power3.in" }, 5.1);
+      tl.fromTo("#newsi", { xPercent: 100, skewX: 8 }, { xPercent: 0, skewX: 0, duration: 0.35, ease: "power3.out" }, 5.1);
+      tl.fromTo("#paper", { scale: 1, y: 0 }, { scale: 1.32, y: -30, duration: 7.9, ease: "sine.inOut" }, 5.45);
+      tl.to("#ln0", { opacity: 1, duration: 0.3, ease: "power2.out" }, 5.8);
+      tl.to("#ln1", { opacity: 1, duration: 0.3, ease: "power2.out" }, 9.5);
+      tl.to("#ln0", { opacity: 0.22, duration: 0.3, ease: "power2.out" }, 9.5);
+
+      // Whip to the poll
+      tl.to("#newsi", { xPercent: -100, skewX: 8, duration: 0.3, ease: "power3.in" }, 13.25);
+      tl.fromTo("#polli", { xPercent: 100, skewX: 8 }, { xPercent: 0, skewX: 0, duration: 0.35, ease: "power3.out" }, 13.25);
+      tl.fromTo("#splitHl", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 13.9);
+      tl.fromTo("#optA", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, 14.9);
+      tl.fromTo("#optB", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, 15.3);
+      tl.fromTo("#circ", { strokeDasharray: 700, strokeDashoffset: 700 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, 16.0);
+      tl.fromTo("#arrow", { strokeDasharray: 400, strokeDashoffset: 400 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, 16.5);
+      tl.fromTo("#cta", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 16.75);
+      tl.set({}, {}, 19);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
