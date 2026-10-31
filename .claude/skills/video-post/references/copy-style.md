@@ -16,10 +16,10 @@ Formulas:
 |---|---|
 | **The END of X?** | "The END of Free UPI?" |
 | **X is LYING to you / Nobody tells you** | "Nobody Tells You Who Pays This Fee" |
-| **Why X secretly…** | "Why Zomato Secretly WANTS You to Pay More" |
+| **Why X secretly…** | "Why Food Apps WANT You to Pay a Platform Fee" |
 | **The ₹X trick behind Y** | "The ₹10 Trick Behind Every Food Order" |
 | **X just changed everything for Y** | "This UPI Rule Just Changed Everything for Shops" |
-| **How X makes money from…** | "How PhonePe Plans to Make Money From Free Payments" |
+| **How X makes money from…** | "How Do Payment Apps Make Money From FREE Payments?" |
 
 Rules:
 - Under ~60 characters so it isn't cut off; keyword in the first 3–4 words.
