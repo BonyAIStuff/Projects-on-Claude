@@ -43,6 +43,8 @@ Then follow the SPEC row by row:
 
 Run `npx hyperframes check --json` and fix every error; weigh every warning. Then `npx hyperframes snapshot --review` and compare the frames against the style reel (`style-tests/style-reel.mp4`) and STYLE.md's rules. Write `videos/<slug>/REVIEW.md` with: what you checked, anything off-style and fixed, anything you're unsure about. A passing check doesn't prove it looks right, so actually look at the frames.
 
+Then run `/format-check` on a draft render for each platform you're delivering and fix what it reports before showing the creator.
+
 ## Gate 3 — Preview approval
 
 Start the preview with `npx hyperframes preview --background` (verify with `--status`), tell the creator they can watch and tweak it there, or in the HyperFrames desktop app. In a cloud session where the creator can't reach a local preview, render a fast draft (`npx hyperframes render --quality draft -o renders/<slug>-draft.mp4`) and send it instead.

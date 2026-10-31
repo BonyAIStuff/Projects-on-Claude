@@ -1,6 +1,6 @@
 # STYLE — Business & marketing explainers
 
-Version: 1.0 — 2026-10-31
+Version: 1.1 — 2026-10-31
 Personality: smart, premium, editorial (Vox / The Economist inspired)
 One-line summary: Newsprint-calm explainers where a soft highlighter carries the words and a red pen appears only when something really matters.
 
@@ -70,11 +70,13 @@ Font files: `assets/fonts/archivo-latin-{500,800}-normal.woff2`. Minimum text si
 - Poll card: "WHAT DO YOU THINK?" kicker, headline with one highlighted word, two options (A/B) in outlined boxes, red-pen arrow to "Vote A or B in the comments".
 
 ## Formats
-- YouTube long-form: 1920×1080, 30 fps.
-- Shorts / Reels: 1080×1920, crop to the speaker; same rules, larger captions.
+- YouTube long-form: 1920×1080, 30 fps. Calm pace: a visual change at least every 10 s; whips between scenes.
+- Instagram Reels: 1080×1920 (9:16), crop to the speaker. "Same style, turned up": a visual change at least every 3 s, captions ≥ 96 px with 2–4 words per line in the middle third, a highlighted word in every line, faster 0.12 s pop-ins, more SFX. Keep out of the Reels UI zones.
+- Full platform rules and checks: `/format-check` (`.claude/skills/format-check/references/platform-rules.md`).
 
 ## Don'ts
 - No red fills, no extra accent colours, no emoji, no stock-looking stickers, no glitch/RGB effects, no bouncy captions.
 
 ## Changelog
 - 1.0 — 2026-10-31 — initial style from the style menu picks and the first edit.
+- 1.1 — 2026-10-31 — platform formats: YouTube 16:9 calm pace; Instagram Reels 9:16 "turned up".
