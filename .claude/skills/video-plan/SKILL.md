@@ -39,31 +39,17 @@ Read `references/style-discovery.md` and follow it. In short: collect references
 
 Ask only what you can't infer. A good brief has: topic, target viewer, the one takeaway, the call to action, target length (long-form) and how many Shorts are wanted, footage the creator already has, deadline. Write `BRIEF.md`. Short questions, one round; propose defaults for anything they skip.
 
-## Step 2 — Three storylines
+## Steps 2–3 — Research, angles and script: use `/video-script`
 
-Write `STORYLINES.md` with three structurally different films, not three wordings of one. For example: a story-led (problem → journey → payoff), a list or framework, and a contrarian or myth-busting take. For each, give:
-- the hook (first 5 seconds, word for word) and the thumbnail + title idea it pairs with,
-- the beat outline with rough timings,
-- where B-roll carries the story and where the face carries it,
-- 3–5 moments that could stand alone as Shorts.
-
-The hook matters most. YouTube's own "Intro" metric is the share of viewers still watching at 30 seconds, and YouTube says a strong opening delivers what the title and thumbnail promised. So write the hook and the packaging together.
-
-**Gate 1 — storyline.** Stop. The creator picks one (or mixes). Record the choice in `STATUS.md`.
-
-## Step 3 — Script and shot list
-
-Write `SCRIPT.md`:
-- **Script** in the creator's voice: spoken sentences, short lines, a marker like `[B-ROLL: hands typing]` or `[ON SCREEN: "3 mistakes"]` where visuals carry the line. Read STYLE.md's tone rules first.
-- **Shot list for filming**: A-roll setups (framing, eyeline, which lines), and a numbered B-roll list with what to shoot, how long (≥ 5 s per clip so the editor has handles), and which line each one covers. Mark items that can come from stock or screen recordings instead.
+The channel has a fixed video structure (cold open with the result → intriguing question → why it matters → analogy-led chapters with stats, objections and fun-fact re-hooks → impact → spot it yourself + debatable poll). `/video-script` owns research, hooks and the script, including Gate 1 (angle) and Gate 2 (script). Run it, then come back here for the SPEC.
 
 ## Step 4 — SPEC (the blueprint)
 
-Read `references/spec-template.md` and write `SPEC.md`. Turn every adjective into a number and every scene into rows: timestamp, what's on screen (A-roll / B-roll / graphic), the spoken line, the style-kit component used (caption, lower-third, chapter card, zoom), and the sound. Add a separate table for each planned Short, with in/out points against the script and its 9:16 hook card text.
+Read `references/spec-template.md` and write `SPEC.md`. Turn every adjective into a number and every scene into rows: timestamp, what's on screen (A-roll / B-roll / graphic), the spoken line, the style-kit component used (caption, lower-third, chapter card, zoom), and the sound. Copy the script's `[REEL n]` tags into a Reels table (in/out against the script, hook card text); Reels are cut from the finished YouTube edit, not planned as separate videos.
 
 The SPEC is the contract `/video-edit` builds against. Anything vague here gets guessed in the edit, and guesses drift away from the signature style.
 
-**Gate 2 — script + SPEC.** Stop. Show a short summary (runtime, scene count, Shorts planned, anything that needs filming), and link the files. On approval, tick the gate, then tell the creator what to film or upload and that `/video-edit` is next.
+**SPEC approval.** Stop. Show a short summary (runtime, scene count, Shorts planned, anything that needs filming), and link the files. On approval, tick the gate, then tell the creator what to film or upload and that `/video-edit` is next.
 
 ## Commit as you go
 
