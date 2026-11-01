@@ -1,6 +1,6 @@
 # Why Apple WANTS You to Touch Its iPhones
 Angle: A — "The 30-second trap" (spot the trap), with B's Decathlon stat and C's touchscreen stat folded in
-Target: ~8:30 · Words: ~1,170 spoken · Style: STYLE.md v1.1 · Audience: India (₹)
+Target: ~8:30 · Words: ~1168 spoken · Style: STYLE.md v1.1 · Audience: India (₹)
 
 > Every number carries its RESEARCH.md reference, e.g. (R3). "Reportedly" stays wherever it's written:
 > Apple has never confirmed the screen-angle story (F1).
@@ -57,11 +57,8 @@ The script below is written for **A1**. If you record A2/B1/C1, only sections 1�
 ## 4 · Chapter 2 — Thirty seconds in your hand (2:15–4:30)
 [CHAPTER CARD: 02 · Thirty seconds in your hand]
 
-**Analogy — SAY:** "Ever held a friend's newborn baby? For the first ten seconds, you're careful. By thirty seconds, you don't want to give the baby back. That's not just love. That's your brain filing it under 'mine'."
-[ANIM: simple illustrated arms holding a swaddled baby; a timer ticks 0:10 → 0:30; a small "mine" tag appears] 
-
-**How it really works — SAY:** "Researchers tested exactly this. People held a mug for either ten seconds or thirty seconds, then bid for it in a real auction. The thirty-second group bid significantly more. (R3) Another study found that just touching a product raises how much you feel you own it, and how much you'll pay for it. Even when it's not yours. (R2)"
-[SLIDE: timeline bar 10s vs 30s, the 30s bar's bid arrow taller] [STAT: 30 seconds · Enough touch to raise your bid · Source: Wolf, Arkes & Muhanna, 2008] [SFX: ping]
+**How it really works — SAY:** "So how long does it take for something to feel like yours? In 2008, researchers tested it with 144 people and, again, a coffee mug. Some held the mug for ten seconds. Others held it for thirty. Then everyone bid for it in a real auction, with real money. The thirty-second group bid significantly more. (R3) Just twenty extra seconds in their hands. And a second study went further. Simply touching a product makes you feel you own it, and makes you willing to pay more for it. Even when it isn't yours. (R2)"
+[ANIM: two hands holding identical mugs; timers over each, 0:10 and 0:30; the 30-second hand's bid tag rises higher] [STAT: 30 seconds · Enough touch to raise your bid · Source: Wolf, Arkes & Muhanna, 2008] [SFX: ping] [TEXT CARD: "Touch → 'mine' → pay more" · Peck & Shu, 2009]
 
 **Proof — SAY:** "Now walk into an Apple store. Every iPhone, every Mac, every iPad is out. Unlocked. No security box. Staff don't rush you. Retail watchers say even the laptop screens are tilted to the same angle every morning, so you reach out and fix them. (F1) And it works. In 2023, each Apple store in India was reported to be selling twenty-two to twenty-five crore rupees a month. (R8)"
 [B-ROLL: Apple BKC / Saket exterior and interior — licensed stock or self-shot] [STAT: ₹22–25 cr · Monthly sales per Apple India store (2023) · Source: MyMobileIndia, 2023] [ANNOTATE: arrow to "per month"]
@@ -133,7 +130,7 @@ The script below is written for **A1**. If you record A2/B1/C1, only sections 1�
 
 ---
 ## Summary
-- **Runtime estimate:** ~7:50 of speech (≈1,170 spoken words at 150 wpm), ~8:20–8:40 with pauses on stat cards and news shots. Section timestamps above are planning estimates; /video-plan sets the real ones in SPEC.md.
+- **Runtime estimate:** ~7:50 of speech (≈1168 spoken words at 150 wpm), ~8:20–8:40 with pauses on stat cards and news shots. Section timestamps above are planning estimates; /video-plan sets the real ones in SPEC.md.
 - **Chapters:** 0:00 Cold open · 0:25 The mug that doubled in price · 2:15 Thirty seconds in your hand · 4:30 Your phone fakes the touch · 6:30 The cousins · 7:35 Impact on you · 8:40 Spot it yourself
 - **Reels:**
   1) 0:25–1:35 · "Same mug. Double the price."
