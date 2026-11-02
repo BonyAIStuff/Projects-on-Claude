@@ -20,3 +20,4 @@ Current stage: plan (script drafted — awaiting Gate 2)
 - 2026-11-01 RESEARCH.md written (17 stats, 6 fun facts; NEEDS SOURCE list at the bottom).
 - 2026-11-01 Gate 1: creator chose Angle A; asked to keep B and C hooks as options and use their stats. B and C held for possible future videos. SCRIPT.md drafted (4 hook options, 4 chapters, 5 Reels).
 - 2026-11-01 Change: Ch.2 newborn-baby analogy removed; mug-timing paragraph rewritten to open the chapter on its own.
+- 2026-11-02 INSTAGRAM.md written (standalone ~60 s Reel); scripts exported to endowment-effect-scripts.pdf for review.
