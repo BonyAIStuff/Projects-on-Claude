@@ -4,7 +4,7 @@ Read straight to camera. One section per take. Stumble? Pause 2 seconds and rest
 
 ## TAKE 1 · Cold open — the result
 
-Apple reportedly sets every laptop in its stores to the exact same angle. Not so you can see the screen. So you'll touch it.
+Ever noticed that in an Apple store, every iPhone is out on the table, unlocked, just waiting for you to pick it up? That's not a favour. Apple wants it in your hand. Because the moment you hold it, it starts to feel like yours.
 
 ## TAKE 2 · The question
 

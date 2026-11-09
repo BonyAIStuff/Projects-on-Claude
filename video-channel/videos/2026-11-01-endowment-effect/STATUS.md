@@ -22,3 +22,4 @@ Current stage: plan (YouTube script approved — creator recording; SPEC pending
 - 2026-11-01 Change: Ch.2 newborn-baby analogy removed; mug-timing paragraph rewritten to open the chapter on its own.
 - 2026-11-02 INSTAGRAM.md written (standalone ~60 s Reel); scripts exported to endowment-effect-scripts.pdf for review.
 - 2026-11-09 Creator approved the YouTube script and is recording from RECORDING.md / endowment-effect-recording-script.pdf (9 takes). Instagram decision (cut from YouTube vs standalone) deferred. Gate 2 stays open until SPEC.md is done.
+- 2026-11-09 Change: cold-open line replaced (laptop-angle line was unclear) with the 'every iPhone is out, unlocked' line; PDFs regenerated.
