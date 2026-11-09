@@ -4,7 +4,7 @@ Read straight to camera. One section per take. Stumble? Pause 2 seconds and rest
 
 ## TAKE 1 · Cold open — the result
 
-Ever noticed that in an Apple store, every iPhone is out on the table, unlocked, just waiting for you to pick it up? That's not a favour. Apple wants it in your hand. Because the moment you hold it, it starts to feel like yours.
+Next time you're in an Apple store, look at the laptops. Every screen is set at the same slightly awkward angle, reportedly on purpose. Not quite right to see the screen properly. So what do you do? You reach out and adjust it. And that's the trick. Apple didn't just want you to look. It wanted you to touch.
 
 ## TAKE 2 · The question
 

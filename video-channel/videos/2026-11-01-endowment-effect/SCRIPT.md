@@ -10,7 +10,7 @@ Target: ~8:30 · Words: ~1168 spoken · Style: STYLE.md v1.1 · Audience: India 
 ## Hook options (pick one at recording; A1 is the default)
 | # | From | Cold-open line | Question |
 |---|---|---|---|
-| **A1** ★ | Angle A | "Ever noticed that in an Apple store, every iPhone is out on the table, unlocked, just waiting for you to pick it up? That's not a favour. Apple wants it in your hand. Because the moment you hold it, it starts to feel like yours." | "So why would 30 seconds of touching make you pay more?" |
+| **A1** ★ | Angle A | "Next time you're in an Apple store, look at the laptops. Every screen is set at the same slightly awkward angle, reportedly on purpose. Not quite right to see the screen properly. So what do you do? You reach out and adjust it. And that's the trick. Apple didn't just want you to look. It wanted you to touch." | "So why would 30 seconds of touching make you pay more?" |
 | A2 | Angle A | "Apple sold a record $9 billion in India last year (N1). And part of that sale happened in your hands, before you paid." | "What happens in your head when you pick up an iPhone?" |
 | B1 | Angle B | "Decathlon gives you a free cricket pitch. And last year it lost ₹65 crore (R9)." | "So why would a store pay to let you play?" |
 | C1 | Angle C | "Shopping on your phone can make you value a product about 50% more than shopping on a laptop (R4)." | "How does a glass screen make something feel like yours?" |
@@ -20,8 +20,8 @@ The script below is written for **A1**. If you record A2/B1/C1, only sections 1�
 ---
 
 ## 1 · Cold open — the result (0:00–0:05)
-**SAY:** "Ever noticed that in an Apple store, every iPhone is out on the table, unlocked, just waiting for you to pick it up? That's not a favour. Apple wants it in your hand. Because the moment you hold it, it starts to feel like yours."
-[B-ROLL: Apple Store interior, laptops on wooden tables — licensed stock, search "apple store laptops table"] [NEWS N1: Inc42, "Apple's India Sales Hit Record $9 Bn Mark In FY25", highlight: "record $9 Bn"] [ANNOTATE: red-pen circle on a hand picking up an iPhone, handwritten "feels like yours"] [SFX: whoosh + shutter]
+**SAY:** "Next time you're in an Apple store, look at the laptops. Every screen is set at the same slightly awkward angle, reportedly on purpose. Not quite right to see the screen properly. So what do you do? You reach out and adjust it. And that's the trick. Apple didn't just want you to look. It wanted you to touch."
+[B-ROLL: Apple Store interior, laptops on wooden tables — licensed stock, search "apple store laptops table"] [NEWS N1: Inc42, "Apple's India Sales Hit Record $9 Bn Mark In FY25", highlight: "record $9 Bn"] [ANNOTATE: red-pen arc on the laptop screen tilt, handwritten "same angle, every morning (reportedly)"; then a hand reaches in and pushes the screen] [SFX: whoosh + shutter]
 
 ## 2 · The question (0:05–0:12)
 **SAY:** "So why would thirty seconds of touching something make you pay more for it?"

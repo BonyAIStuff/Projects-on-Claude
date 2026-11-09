@@ -23,3 +23,4 @@ Current stage: plan (YouTube script approved — creator recording; SPEC pending
 - 2026-11-02 INSTAGRAM.md written (standalone ~60 s Reel); scripts exported to endowment-effect-scripts.pdf for review.
 - 2026-11-09 Creator approved the YouTube script and is recording from RECORDING.md / endowment-effect-recording-script.pdf (9 takes). Instagram decision (cut from YouTube vs standalone) deferred. Gate 2 stays open until SPEC.md is done.
 - 2026-11-09 Change: cold-open line replaced (laptop-angle line was unclear) with the 'every iPhone is out, unlocked' line; PDFs regenerated.
+- 2026-11-09 Change: cold open rewritten to keep the laptop-angle idea but explain it plainly (awkward angle → you reach out and adjust → touch).
